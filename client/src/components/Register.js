@@ -24,6 +24,9 @@ export default function Register() {
     }
   })
 
+  /*formik doesnot support file upload then we have to create this function*/
+
+
   return (
     <div className="container mx-auto">
 
