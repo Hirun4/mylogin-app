@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import avatar from '../assets/profile.png';
 import { Toaster } from 'react-hot-toast';
@@ -9,6 +9,8 @@ import styles from '../styles/Username.module.css';
 import Username from './Username';
 
 export default function Register() {
+
+  const [file,setFile] = useState()
 
   const formik = useFormik({
     initialValues : {
@@ -27,6 +29,7 @@ export default function Register() {
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
     const base64 = ''
+    setFile= (base64);
   }
 
 
