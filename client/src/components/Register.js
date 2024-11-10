@@ -25,6 +25,11 @@ export default function Register() {
   })
 
   /*formik doesnot support file upload then we have to create this function*/
+  const onUpload = async e => {
+    const base64 = ''
+  }
+
+
 
 
   return (
