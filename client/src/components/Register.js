@@ -7,6 +7,7 @@ import { registerValidation } from '../helper/validate';
 
 import styles from '../styles/Username.module.css';
 import Username from './Username';
+import convertToBase64 from '../helper/convert';
 
 export default function Register() {
 
@@ -28,7 +29,7 @@ export default function Register() {
 
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
-    const base64 = ''
+    const base64 = await convertToBase64();
     setFile= (base64);
   }
 
