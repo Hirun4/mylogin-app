@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import avatar from '../assets/profile.png';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { passwordValidate } from '../helper/validate';
+import { registerValidation } from '../helper/validate';
 
 import styles from '../styles/Username.module.css';
 import Username from './Username';
 
 export default function Register() {
+
+  const [file,setFile] = useState()
 
   const formik = useFormik({
     initialValues : {
@@ -16,13 +18,22 @@ export default function Register() {
       Username: 'example123',
       password : 'admin@123'
     },
-    validate : passwordValidate,
+    validate : registerValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values =>{
       console.log(values)
     }
   })
+
+  /*formik doesnot support file upload then we have to create this function*/
+  const onUpload = async e => {
+    const base64 = ''
+    setFile= (base64);
+  }
+
+
+
 
   return (
     <div className="container mx-auto">
