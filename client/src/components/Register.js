@@ -30,7 +30,7 @@ export default function Register() {
 
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
-    const base64 = await convertToBase64();
+    const base64 = await convertToBase64(e.target.files[0]);
     setFile= (base64);
   }
 
