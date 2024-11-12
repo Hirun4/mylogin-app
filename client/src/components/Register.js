@@ -7,6 +7,7 @@ import { registerValidation } from '../helper/validate';
 
 import styles from '../styles/Username.module.css';
 import Username from './Username';
+import convertToBase64 from '../helper/convert';
 
 export default function Register() {
 
@@ -22,13 +23,14 @@ export default function Register() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values =>{
+      values = await Object.assign(values,{profile : file || ''})
       console.log(values)
     }
   })
 
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
-    const base64 = ''
+    const base64 = await convertToBase64();
     setFile= (base64);
   }
 
@@ -54,10 +56,10 @@ export default function Register() {
               <form className='py-1' onSubmit={formik.handleSubmit}>
                 <div className='profile flex justify-center py-4'>
                     <label htmlFor="profile">
-                    <img src={avatar} className={styles.profile_img} alt="avatar" />
+                    <img src={ file || avatar} className={styles.profile_img} alt="avatar" />
                     </label>
 
-                    <input type="file" id='profile' name='profile' />
+                    <input  onChange = {onUpload} type="file" id='profile' name='profile' />
                    
 
                 </div>
