@@ -23,7 +23,7 @@ export default function Register() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values =>{
-      values = await Object.assign(values,{profile : file})
+      values = await Object.assign(values,{profile : file || ''})
       console.log(values)
     }
   })
@@ -56,10 +56,10 @@ export default function Register() {
               <form className='py-1' onSubmit={formik.handleSubmit}>
                 <div className='profile flex justify-center py-4'>
                     <label htmlFor="profile">
-                    <img src={avatar} className={styles.profile_img} alt="avatar" />
+                    <img src={ file || avatar} className={styles.profile_img} alt="avatar" />
                     </label>
 
-                    <input type="file" id='profile' name='profile' />
+                    <input  onChange = {onUpload} type="file" id='profile' name='profile' />
                    
 
                 </div>
