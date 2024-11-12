@@ -16,7 +16,7 @@ export default function Register() {
   const formik = useFormik({
     initialValues : {
       email: 'shjaye@gmail.com',
-      Username: 'example123',
+      username: 'example123',
       password : 'admin@123'
     },
     validate : registerValidation,
@@ -31,7 +31,7 @@ export default function Register() {
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
-    setFile= (base64);
+    setFile(base64);
   }
 
 
