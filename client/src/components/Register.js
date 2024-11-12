@@ -23,6 +23,7 @@ export default function Register() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values =>{
+      values = await Object.assign(values,{profile : file})
       console.log(values)
     }
   })
