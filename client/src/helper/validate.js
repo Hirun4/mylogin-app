@@ -72,3 +72,10 @@ function usernameVerify(error = {}, values){
 
     return error;
 }
+
+/* validate email */
+function emailVerify(error = {},values){
+    if (!values.email) {
+        error.email = toast.error("Email required...!");
+    }
+}
