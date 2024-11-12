@@ -6,12 +6,11 @@ import { useFormik } from 'formik';
 import { registerValidation } from '../helper/validate';
 
 import styles from '../styles/Username.module.css';
-import Username from './Username';
 import convertToBase64 from '../helper/convert';
 
 export default function Register() {
 
-  const [file,setFile] = useState()
+  const [file,setFile] = useState();
 
   const formik = useFormik({
     initialValues : {
