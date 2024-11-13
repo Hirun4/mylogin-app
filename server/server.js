@@ -13,4 +13,6 @@ app.disable('x-powered-by'); //less hackers know about our stack
 const port = 8080;
 
 /*HTTP get request*/
-
+app.get('/', (req,res) => {
+    res.status(201).json("Home Get Request");
+});
