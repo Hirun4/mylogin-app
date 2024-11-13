@@ -1,5 +1,5 @@
 .glass{
-    @apply h-5/6  w-5/6;
+    @apply h-screen  w-5/6;
 }
 
 .pofile_img{
