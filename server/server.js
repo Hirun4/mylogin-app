@@ -1,7 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import connect from './database/conn.js';
+import router from './router/route.js';
+
+
 const app = express();
+
 
 
 /*midddlewares*/
@@ -17,7 +22,21 @@ app.get('/', (req,res) => {
     res.status(201).json("Home Get Request");
 });
 
-/*server start*/
-app.listen(port,() => {
-    console.log(`server connected to http://localhost:${port}`);
+
+/*api routes*/
+app.use('/api',router)
+
+/*server start only we have valid connection*/
+connect().then(() => {
+    try {
+        app.listen(port,() => {
+            console.log(`server connected to http://localhost:${port}`);
+        })
+        
+    } catch (error) {
+        console.log('cannot connect to the server')
+    }
+}).catch(error => {
+    console.log("Invalid database connection...!");
 })
+
