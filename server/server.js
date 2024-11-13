@@ -16,3 +16,8 @@ const port = 8080;
 app.get('/', (req,res) => {
     res.status(201).json("Home Get Request");
 });
+
+/*server start*/
+app.listen(port,() => {
+    console.log(`server connected to http://localhost:${port}`);
+})
