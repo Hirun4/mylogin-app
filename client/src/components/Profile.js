@@ -8,7 +8,7 @@ import { registerValidation } from '../helper/validate';
 import styles from '../styles/Username.module.css';
 import convertToBase64 from '../helper/convert';
 
-export default function Register() {
+export default function Profile() {
 
   const [file,setFile] = useState();
 
@@ -46,9 +46,9 @@ export default function Register() {
             <div className={styles.glass} style={{width: "45%",paddingTop: '3em'}}>
               
               <div className="title flex flex-col items-center">
-                <h4 className='text-5xl font-bold'>Register</h4>
+                <h4 className='text-5xl font-bold'>Profile</h4>
                 <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
-                  Happy to join you!
+                  You can update your details
                 </span>
               </div>
 
@@ -63,6 +63,17 @@ export default function Register() {
 
                 </div>
                 <div className="textbox flex flex-col items-center gap-6">
+                   <div className='name flex w-3/4 gap-10' >
+                   <input {...formik.getFieldProps('firstName')} className={styles.textbox} type="text" placeholder='FirstName' />
+                   <input {...formik.getFieldProps('lastName')} className={styles.textbox} type="text" placeholder='LastName' />
+                   </div>
+
+                   <div className='name flex w-3/4 gap-10' >
+                   <input {...formik.getFieldProps('mobile')} className={styles.textbox} type="text" placeholder='Mobile No.' />
+                   <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
+                   </div>
+
+
                     <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
                     <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username*' />
                     <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password*' />
