@@ -6,17 +6,16 @@ import { useFormik } from 'formik';
 import { registerValidation } from '../helper/validate';
 
 import styles from '../styles/Username.module.css';
-import Username from './Username';
 import convertToBase64 from '../helper/convert';
 
 export default function Register() {
 
-  const [file,setFile] = useState()
+  const [file,setFile] = useState();
 
   const formik = useFormik({
     initialValues : {
       email: 'shjaye@gmail.com',
-      Username: 'example123',
+      username: 'example123',
       password : 'admin@123'
     },
     validate : registerValidation,
@@ -30,8 +29,8 @@ export default function Register() {
 
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
-    const base64 = await convertToBase64();
-    setFile= (base64);
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
   }
 
 
