@@ -73,12 +73,10 @@ export default function Profile() {
                    <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
                    </div>
 
-
-                    <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
-                    <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username*' />
-                    <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password*' />
-                    <button className={styles.btn} type='submit'>Register</button>
-
+                   <div className='name flex w-3/4 gap-10' >
+                   <input {...formik.getFieldProps('address')} className={styles.textbox} type="text" placeholder='Adddress' />
+                   <button className={styles.btn} type='submit'>Register</button>
+                   </div>
                 </div>
                 <div className="text-center py-4">
                     <span className='text-gray-500'>Already Register? <Link className='text-red-500' to="/">Login Now</Link></span>
