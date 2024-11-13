@@ -14,6 +14,9 @@ export default function Profile() {
 
   const formik = useFormik({
     initialValues : {
+      firstName: 'hirun',
+      lastName: 'kariyawasam',
+      
       email: 'shjaye@gmail.com',
       username: 'example123',
       password : 'admin@123'
