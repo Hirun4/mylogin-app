@@ -24,11 +24,14 @@ app.get('/', (req,res) => {
 /*server start only we have valid connection*/
 connect().then(() => {
     try {
+        app.listen(port,() => {
+            console.log(`server connected to http://localhost:${port}`);
+        })
         
     } catch (error) {
         console.log('cannot connect to the server')
     }
+}).catch(error => {
+    console.log("Invalid database connection...!")
 })
-app.listen(port,() => {
-    console.log(`server connected to http://localhost:${port}`);
-})
+
