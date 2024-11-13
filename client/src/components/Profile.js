@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import avatar from '../assets/profile.png';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { registerValidation } from '../helper/validate';
+import { profileValidation } from '../helper/validate';
 
 import styles from '../styles/Username.module.css';
+import extend from '../styles/Prrofile.module.css'
 import convertToBase64 from '../helper/convert';
 
 export default function Profile() {
@@ -14,11 +15,13 @@ export default function Profile() {
 
   const formik = useFormik({
     initialValues : {
+      firstName: 'hirun',
+      lastName: 'kariyawasam',
       email: 'shjaye@gmail.com',
-      username: 'example123',
-      password : 'admin@123'
+      mobile: '0706281338',
+      address : 'Galle'
     },
-    validate : registerValidation,
+    validate : profileValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values =>{
@@ -43,7 +46,7 @@ export default function Profile() {
 
 
         <div className='flex justify-center items-center  h-screen'>
-            <div className={styles.glass} style={{width: "45%",paddingTop: '3em'}}>
+            <div className={`${styles.glass} ${extend.glass}`} style={{width: "45%",paddingTop: '3em'}}>
               
               <div className="title flex flex-col items-center">
                 <h4 className='text-5xl font-bold'>Profile</h4>
@@ -55,7 +58,7 @@ export default function Profile() {
               <form className='py-1' onSubmit={formik.handleSubmit}>
                 <div className='profile flex justify-center py-4'>
                     <label htmlFor="profile">
-                    <img src={ file || avatar} className={styles.profile_img} alt="avatar" />
+                    <img src={ file || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
                     </label>
 
                     <input  onChange = {onUpload} type="file" id='profile' name='profile' />
@@ -64,22 +67,22 @@ export default function Profile() {
                 </div>
                 <div className="textbox flex flex-col items-center gap-6">
                    <div className='name flex w-3/4 gap-10' >
-                   <input {...formik.getFieldProps('firstName')} className={styles.textbox} type="text" placeholder='FirstName' />
-                   <input {...formik.getFieldProps('lastName')} className={styles.textbox} type="text" placeholder='LastName' />
+                   <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='FirstName' />
+                   <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='LastName' />
                    </div>
 
                    <div className='name flex w-3/4 gap-10' >
-                   <input {...formik.getFieldProps('mobile')} className={styles.textbox} type="text" placeholder='Mobile No.' />
-                   <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
+                   <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Mobile No.' />
+                   <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*' />
                    </div>
 
                    
-                   <input {...formik.getFieldProps('address')} className={styles.textbox} type="text" placeholder='Adddress' />
+                   <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Adddress' />
                    <button className={styles.btn} type='submit'>Update</button>
                    
                 </div>
                 <div className="text-center py-4">
-                    <span className='text-gray-500'>Already Register? <Link className='text-red-500' to="/">Login Now</Link></span>
+                    <span className='text-gray-500'>Come back later?<Link className='text-red-500' to="/">  Logout</Link></span>
 
                 </div>
 
