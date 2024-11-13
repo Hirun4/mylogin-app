@@ -79,7 +79,7 @@ export default function Profile() {
                    
                 </div>
                 <div className="text-center py-4">
-                    <span className='text-gray-500'>Already Register? <Link className='text-red-500' to="/">Login Now</Link></span>
+                    <span className='text-gray-500'>Come back later?<Link className='text-red-500' to="/">  Logout</Link></span>
 
                 </div>
 
