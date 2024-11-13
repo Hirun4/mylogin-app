@@ -16,10 +16,9 @@ export default function Profile() {
     initialValues : {
       firstName: 'hirun',
       lastName: 'kariyawasam',
-      
       email: 'shjaye@gmail.com',
-      username: 'example123',
-      password : 'admin@123'
+      mobile: '0706281338',
+      address : 'Galle'
     },
     validate : registerValidation,
     validateOnBlur: false,
