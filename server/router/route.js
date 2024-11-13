@@ -11,6 +11,10 @@ router.route('/login').post();
 
 
 /*GET methods*/
+router.route('/user/:username').get();
+router.route('/generateOTP').get();
+router.route('/verifyOTP').get();
+router.route('/createResetSession').get();
 
 /*PUT methods*/
 
