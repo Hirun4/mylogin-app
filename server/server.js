@@ -1,7 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import connect from './database/conn';
+
+
 const app = express();
+
 
 
 /*midddlewares*/
@@ -17,7 +21,14 @@ app.get('/', (req,res) => {
     res.status(201).json("Home Get Request");
 });
 
-/*server start*/
+/*server start only we have valid connection*/
+connect().then(() => {
+    try {
+        
+    } catch (error) {
+        console.log('cannot connect to the server')
+    }
+})
 app.listen(port,() => {
     console.log(`server connected to http://localhost:${port}`);
 })
