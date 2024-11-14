@@ -16,7 +16,7 @@ router.route('/login').post(controller.login);
 
 /*GET methods*/
 router.route('/user/:username').get(controller.getUser);//user with username
-router.route('/generateOTP').get();
+router.route('/generateOTP').get(controller.generateOTP);
 router.route('/verifyOTP').get();
 router.route('/createResetSession').get();
 
