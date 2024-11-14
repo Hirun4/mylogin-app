@@ -10,6 +10,10 @@ export const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "please provide a password"],
         unique: true,
-
+    },
+    email: {
+        type: String,
+        required: [true, "please provide a password"],
+        unique: true,
     }
 })
