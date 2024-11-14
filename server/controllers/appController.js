@@ -33,3 +33,12 @@ export async function verifyOTP(req,res) {
 export async function createResetSession(req,res) {
     res.json('createResetSession route');
 }
+
+export async function resetPassword(req,res) {
+    res.json('resetPassword route');
+}
+
+
+export async function resetPassword(req,res) {
+    res.json('resetPassword route');
+}
