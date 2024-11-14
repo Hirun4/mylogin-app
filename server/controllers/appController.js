@@ -26,6 +26,17 @@ export async function register(req,res) {
         })
        });
 
+       Promise.all([existUsername,existEmail])
+       .then(() => {
+        if (password) {
+            
+        }
+       }).catch(error => {
+        return res.status(500).send({
+            error: "Enable to hashed password"
+        })
+       })
+
 
 
        
