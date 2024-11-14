@@ -1,4 +1,4 @@
-
+import UserModel from '../model/User.model.js'
 
 
 export async function register(req,res) {
