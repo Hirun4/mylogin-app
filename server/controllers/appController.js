@@ -13,3 +13,12 @@ export async function login(req,res) {
 export async function getUser(req,res) {
     res.json('getUser route');
 }
+
+export async function updateUser(req,res) {
+    res.json('updateUser route');
+}
+
+
+export async function generateOTP(req,res) {
+    res.json('generateOTP route');
+}
