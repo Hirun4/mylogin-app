@@ -2,6 +2,9 @@ import { Router } from "express";
 
 const router= Router();
 
+/*import all controllers*/
+
+
 /*Post methods*/
 router.route('/register').post((req,res) => res.json('register route'));
 router.route('/registerMail').post();
