@@ -24,5 +24,12 @@ export const UserSchema = new mongoose.Schema({
     },
     mobile: {
         type: Number,
-    }
+    },
+    address: {
+        type: String,
+    },
+    lastName: {
+        type: String,
+    },
+
 })
