@@ -20,7 +20,7 @@ export async function register(req,res) {
        const existEmail = new Promise((resolve,reject) => {
         UserModel.findOne({email} ,function(err,email) {
             if(err)  reject(new Error(err))
-            if(email) reject({error : "Please use unique username"});
+            if(email) reject({error : "Please use unique Email"});
 
             resolve();
         })
