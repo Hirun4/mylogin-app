@@ -22,3 +22,9 @@ export async function updateUser(req,res) {
 export async function generateOTP(req,res) {
     res.json('generateOTP route');
 }
+
+
+
+export async function verifyOTP(req,res) {
+    res.json('verifyOTP route');
+}
