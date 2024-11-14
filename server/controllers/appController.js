@@ -39,6 +39,11 @@ export async function register(req,res) {
                     email
                  })
 
+                 //return and save reslt as a response
+                 user.save()
+                 .then(result => res.status(201).send({msg: "user registered successfully"}))
+                 .catch (error => res.status(500).send({error}))
+
 
 
             }).catch(error => {
