@@ -1,8 +1,40 @@
-
+import UserModel from '../model/User.model.js'
 
 
 export async function register(req,res) {
-    res.json('Register route');
+    try {
+        const {username,password,profile,email} =req.body;
+
+       //check the existing user
+       const existUsername = new Promise((resolve,reject) => {
+        UserModel.findOne({username} ,function(err,user) {
+            if(err)  reject(new Error(err))
+            if(user) reject({error : "Please use unique username"});
+
+            resolve();
+        })
+       });
+
+
+        //checking for existing email
+       const existEmail = new Promise((resolve,reject) => {
+        UserModel.findOne({email} ,function(err,email) {
+            if(err)  reject(new Error(err))
+            if(email) reject({error : "Please use unique Email"});
+
+            resolve();
+        })
+       });
+
+
+
+       
+
+
+
+    } catch (error) {
+        return  res.status(500).send(error);
+    }
 }
 
 
