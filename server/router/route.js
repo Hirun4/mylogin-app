@@ -7,22 +7,22 @@ import * as controller from '../controllers/appController.js';
 
 
 /*Post methods*/
-router.route('/register').post((req,res) => res.json('register route'));
-router.route('/registerMail').post();
-router.route('/authenticate').post();
-router.route('/login').post();
+router.route('/register').post(controller.register);
+// router.route('/registerMail').post();
+router.route('/authenticate').post((req,res) => res.end());
+router.route('/login').post(controller.login);
 
 
 
 /*GET methods*/
-router.route('/user/:username').get();//user with username
-router.route('/generateOTP').get();
-router.route('/verifyOTP').get();
-router.route('/createResetSession').get();
+router.route('/user/:username').get(controller.getUser);//user with username
+router.route('/generateOTP').get(controller.generateOTP);
+router.route('/verifyOTP').get(controller.verifyOTP);
+router.route('/createResetSession').get(controller.createResetSession);
 
 /*PUT methods*/
-router.route('/updateuser').put();
-router.route('resetPassword').put();
+router.route('/updateuser').put(controller.updateUser);
+router.route('resetPassword').put(controller.resetPassword);
 
 
 export default router;
