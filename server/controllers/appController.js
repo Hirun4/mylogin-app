@@ -13,7 +13,7 @@ export async function register(req,res) {
 
             resolve();
         })
-       })
+       });
 
 
 
