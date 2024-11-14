@@ -35,7 +35,7 @@ export async function register(req,res) {
                  const user = new UserModel({
                     username,
                     password: hashedPassword,
-                    profile: profile,
+                    profile: profile || '',
                     email
                  })
 
