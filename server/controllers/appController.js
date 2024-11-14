@@ -28,3 +28,8 @@ export async function generateOTP(req,res) {
 export async function verifyOTP(req,res) {
     res.json('verifyOTP route');
 }
+
+
+export async function createResetSession(req,res) {
+    res.json('createResetSession route');
+}
