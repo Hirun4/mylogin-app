@@ -6,6 +6,9 @@ export async function register(req,res) {
         const {username,password,profile,email} =req.body;
 
        //check the existing user
+       const existUsername = new Promise((resolve,reject) => {
+        
+       })
 
 
 
