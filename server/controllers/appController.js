@@ -3,7 +3,7 @@ import UserModel from '../model/User.model.js'
 
 export async function register(req,res) {
     try {
-        
+        const {} =req.body;
     } catch (error) {
         return  res.status(500).send(error);
     }
