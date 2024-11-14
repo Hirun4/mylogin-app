@@ -30,12 +30,17 @@ export async function register(req,res) {
        Promise.all([existUsername,existEmail])
        .then(() => {
         if (password) {
-            
+            bcrypt.hash(password,10)
+            .then(hashedPassword => {
+
+            }).catch(error => {
+                return res.status(500).send({
+                    error: "Enable to hashed password"
+                })
+            })
         }
        }).catch(error => {
-        return res.status(500).send({
-            error: "Enable to hashed password"
-        })
+        return res.status(500).send({error})
        })
 
 
