@@ -13,7 +13,7 @@ export const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "please provide a password"],
+        required: [true, "please provide a email"],
         unique: true,
     }
 })
