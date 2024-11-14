@@ -34,7 +34,9 @@ export async function register(req,res) {
             .then(hashedPassword => {
                  const user = new UserModel({
                     username,
-                    password: hashedPassword
+                    password: hashedPassword,
+                    profile: profile,
+                    email: email
                  })
 
 
