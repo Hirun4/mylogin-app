@@ -10,6 +10,8 @@ export async function register(req,res) {
         UserModel.findOne({username} ,function(err,user) {
             if(err)  reject(new Error(err))
             if(user) reject({error : "Please use unique username"});
+
+            resolve();
         })
        })
 
