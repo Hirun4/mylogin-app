@@ -7,7 +7,9 @@ export async function register(req,res) {
 
        //check the existing user
        const existUsername = new Promise((resolve,reject) => {
-        UserModel.findOne({username})
+        UserModel.findOne({username} ,function(err,user) {
+            if(err)  reject(new Error(err))
+        })
        })
 
 
