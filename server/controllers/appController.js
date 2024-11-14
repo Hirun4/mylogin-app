@@ -1,4 +1,5 @@
 import UserModel from '../model/User.model.js'
+import bcrypt from 'bcrypt';
 
 
 export async function register(req,res) {
