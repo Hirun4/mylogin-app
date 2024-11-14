@@ -32,6 +32,12 @@ export async function register(req,res) {
         if (password) {
             bcrypt.hash(password,10)
             .then(hashedPassword => {
+                 const user = new UserModel({
+                    username,
+                    password: hashedPassword
+                 })
+
+
 
             }).catch(error => {
                 return res.status(500).send({
