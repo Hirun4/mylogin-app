@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import ENV from '../config.js'
+import { reset } from "nodemon";
 
 /** auth middleware */
 export default async function Auth(req, res, next) {
@@ -19,4 +20,12 @@ export default async function Auth(req, res, next) {
     } catch (error) {
         res.status(401).json[{ error : "Authentication Failed!"}]
     }
+}
+
+export function localVariables(req, res, next){
+    req.app.locals = {
+        OTP : null,
+        resetSession : false
+    }
+    next()
 }
