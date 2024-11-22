@@ -295,6 +295,8 @@ export async function createResetSession(req, res) {
 
 export async function resetPassword(req, res) {
   try {
+
+    if(!req.app.locals.resetSession) return res.status(440).send({ error: "Session expired!" });
     const {username,password} = req.body;
 
      try {
@@ -304,8 +306,9 @@ export async function resetPassword(req, res) {
         .then(hashedPassword => {
           UserModel.updateOne({username: user.username},{password: hashedPassword},function(err,data){
             if(err) throw err;
+            req.app.locals.resetSession = false;
             return res.status(201).send({msg: "record updated"})
-          })
+          });
         })
         .catch(e => {
           return res.status(500).send({ error: "Enable to hash password"})
@@ -323,7 +326,7 @@ export async function resetPassword(req, res) {
   } catch (error) {
     return res.status(401).send({error})
   }
-  
+
 }
 
 
