@@ -239,6 +239,14 @@ export async function createResetSession(req, res) {
 
 export async function resetPassword(req, res) {
   try {
+    const {username,password} = req.body;
+
+     try {
+      
+     } catch (error) {
+      return res.status(500).send
+     }
+
     
   } catch (error) {
     return res.status(401).send({error})
