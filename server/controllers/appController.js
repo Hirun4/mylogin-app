@@ -239,18 +239,16 @@ export async function getUser(req, res) {
 export async function updateUser(req, res) {
   try {
     console.log("Request user:", req.user); // Debug log
-    const { userId } = req.user; // Get the user ID from the request object
+    const userId = req.query.userId || req.body.userId; // Get userId from query or body
 
     if (!userId) {
-      return res.status(401).send({ error: "User not found or unauthorized." });
+      return res.status(400).send({ error: "User ID is required." });
     }
 
-    const body = req.body; // Get the update data from the request body
-
-    // Update the user data in the database
-    const updatedUser = await UserModel.findByIdAndUpdate( userId, body, {
-      new: true, // Return the updated document
-      runValidators: true, // Run validation on the updated data
+    const body = req.body;
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, body, {
+      new: true,
+      runValidators: true,
     });
 
     if (!updatedUser) {
@@ -263,6 +261,7 @@ export async function updateUser(req, res) {
     return res.status(500).send({ error: "An error occurred while updating the record." });
   }
 }
+
 
 
 export async function generateOTP(req, res) {
