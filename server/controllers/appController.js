@@ -165,26 +165,51 @@ export async function login(req, res) {
   }
 }
 
+// export async function getUser(req, res) {
+//   const { username } = req.params;
+
+//   try {
+//     if (!username) return res.status(400).send({ error: "Invalid Username" });
+
+//     UserModel.findOne({ username }, function (err, user) {
+//       if (err) return res.status(500).send({ err });
+//       if (!user)
+//         return res.status(400).send({ error: "Couldn't Find the User" });
+
+//       /**remove password from user */
+//       // mongoose return unnecessary data with object so convert it into json
+
+//       const { password, ...rest } = Object.assign({}, user.toJSON());
+
+//       return res.status(201).send(rest);
+//     });
+//   } catch (error) {
+//     return res.status(404).send({ error: "Cannot Find User Data" });
+//   }
+// }
 export async function getUser(req, res) {
   const { username } = req.params;
 
   try {
-    if (!username) return res.status(501).send({ error: "Invalid Username" });
+    // Log username
+    console.log("Username received:", username);
 
-    UserModel.findOne({ username }, function (err, user) {
-      if (err) return res.status(500).send({ err });
-      if (!user)
-        return res.status(501).send({ error: "Couldn't Find the User" });
+    if (!username) return res.status(400).send({ error: "Invalid Username" });
 
-      /**remove password from user */
-      // mongoose return unnecessary data with object so convert it into json
+    
+    const user = await UserModel.findOne({ username });
 
-      const { password, ...rest } = Object.assign({}, user.toJSON());
+    // Debugging: Log the user object
+    console.log("User found:", user);
 
-      return res.status(201).send(user);
-    });
+    if (!user) return res.status(404).send({ error: "User not found" });
+
+    // Exclude password from response
+    const { password, ...rest } = user.toJSON();
+    return res.status(200).send(rest);
   } catch (error) {
-    return res.status(404).send({ error: "Cannot Find User Data" });
+    console.error("Error in getUser:", error);
+    return res.status(500).send({ error: "Cannot Find User Data" });
   }
 }
 
