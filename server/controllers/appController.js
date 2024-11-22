@@ -238,8 +238,10 @@ export async function getUser(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    console.log("Request user:", req.user); // Debug log
+    
     const userId = req.query.userId || req.body.userId; 
+
+    console.log("Request user:", userId); // Debug 
 
     if (!userId) {
       return res.status(400).send({ error: "User ID is required." });
