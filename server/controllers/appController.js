@@ -238,7 +238,11 @@ export async function createResetSession(req, res) {
 }
 
 export async function resetPassword(req, res) {
-  res.json("resetPassword route");
+  try {
+    
+  } catch (error) {
+    return res.status(401).send({error})
+  }
 }
 
 
