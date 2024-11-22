@@ -323,6 +323,7 @@ export async function resetPassword(req, res) {
   } catch (error) {
     return res.status(401).send({error})
   }
+  
 }
 
 
