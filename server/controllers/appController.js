@@ -238,7 +238,7 @@ export async function getUser(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    
+    console.log("Request user:", req.user); // Debug log
     const { userId } = req.user; // Get the user ID from the request object
 
     if (!userId) {
