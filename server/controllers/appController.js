@@ -165,50 +165,106 @@ export async function login(req, res) {
   }
 }
 
+//export async function getUser(req, res) {
+//   const { username } = req.params;
+
+//   try {
+//     if (!username) return res.status(400).send({ error: "Invalid Username" });
+
+//     UserModel.findOne({ username }, function (err, user) {
+//       if (err) return res.status(500).send({ err });
+//       if (!user)
+//         return res.status(400).send({ error: "Couldn't Find the User" });
+
+//       /**remove password from user */
+//       // mongoose return unnecessary data with object so convert it into json
+
+//       const { password, ...rest } = Object.assign({}, user.toJSON());
+
+//       return res.status(201).send(rest);
+//     });
+//   } catch (error) {
+//     return res.status(404).send({ error: "Cannot Find User Data" });
+//   }
+// }
 export async function getUser(req, res) {
   const { username } = req.params;
 
   try {
-    if (!username) return res.status(501).send({ error: "Invalid Username" });
+    // Log username
+    console.log("Username received:", username); //for debugging
 
-    UserModel.findOne({ username }, function (err, user) {
-      if (err) return res.status(500).send({ err });
-      if (!user)
-        return res.status(501).send({ error: "Couldn't Find the User" });
+    if (!username) return res.status(400).send({ error: "Invalid Username" });
 
-      /**remove password from user */
-      // mongoose return unnecessary data with object so convert it into json
+    
+    const user = await UserModel.findOne({ username });
 
-      const { password, ...rest } = Object.assign({}, user.toJSON());
+  
 
-      return res.status(201).send(user);
-    });
+    if (!user) return res.status(404).send({ error: "User not found" });
+
+    // Exclude password from response
+    const { password, ...rest } = user.toJSON();
+    return res.status(200).send(rest);
+
   } catch (error) {
-    return res.status(404).send({ error: "Cannot Find User Data" });
+
+    console.error("Error in getUser:", error);
+    return res.status(500).send({ error: "Cannot Find User Data" });
   }
 }
+
+// export async function updateUser(req, res) {
+//   try {
+//     // const id =req.query.id;
+//     const { userId } = req.user;
+
+//     if (userId) {
+//       const body = req.body;
+
+//       // update the data
+//       UserModel.updateOne({ _id: userId }, body, function (err, data) {
+//         if (err) throw err;
+
+//         return res.status(201).send({ msg: "Record Updated...!" });
+//       });
+//     } else {
+//       return res.status(401).send({ error: "User Not Found...!" });
+//     }
+//   } catch (error) {
+//     return res.status(401).send({ error });
+//   }
+// }
 
 export async function updateUser(req, res) {
   try {
-    // const id =req.query.id;
-    const { userId } = req.user;
+    
+    const userId = req.query.userId || req.body.userId; 
 
-    if (userId) {
-      const body = req.body;
+    console.log("Request user:", userId); // Debug 
 
-      // update the data
-      UserModel.updateOne({ _id: userId }, body, function (err, data) {
-        if (err) throw err;
-
-        return res.status(201).send({ msg: "Record Updated...!" });
-      });
-    } else {
-      return res.status(401).send({ error: "User Not Found...!" });
+    if (!userId) {
+      return res.status(400).send({ error: "User ID is required." });
     }
+
+    const body = req.body;
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).send({ error: "User not found." });
+    }
+
+    return res.status(200).send({ msg: "Record updated successfully!", data: updatedUser });
   } catch (error) {
-    return res.status(401).send({ error });
+    console.error("Error updating user:", error.message);
+    return res.status(500).send({ error: "An error occurred while updating the record." });
   }
 }
+
+
 
 export async function generateOTP(req, res) {
   req.app.locals.OTP = await otpGenerator.generate(6, {
