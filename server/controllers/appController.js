@@ -214,27 +214,56 @@ export async function getUser(req, res) {
   }
 }
 
+// export async function updateUser(req, res) {
+//   try {
+//     // const id =req.query.id;
+//     const { userId } = req.user;
+
+//     if (userId) {
+//       const body = req.body;
+
+//       // update the data
+//       UserModel.updateOne({ _id: userId }, body, function (err, data) {
+//         if (err) throw err;
+
+//         return res.status(201).send({ msg: "Record Updated...!" });
+//       });
+//     } else {
+//       return res.status(401).send({ error: "User Not Found...!" });
+//     }
+//   } catch (error) {
+//     return res.status(401).send({ error });
+//   }
+// }
+
 export async function updateUser(req, res) {
   try {
-    // const id =req.query.id;
-    const { userId } = req.user;
+    
+    const { userId } = req.user; // Get the user ID from the request object
 
-    if (userId) {
-      const body = req.body;
-
-      // update the data
-      UserModel.updateOne({ _id: userId }, body, function (err, data) {
-        if (err) throw err;
-
-        return res.status(201).send({ msg: "Record Updated...!" });
-      });
-    } else {
-      return res.status(401).send({ error: "User Not Found...!" });
+    if (!userId) {
+      return res.status(401).send({ error: "User not found or unauthorized." });
     }
+
+    const body = req.body; // Get the update data from the request body
+
+    // Update the user data in the database
+    const updatedUser = await UserModel.findByIdAndUpdate( userId, body, {
+      new: true, // Return the updated document
+      runValidators: true, // Run validation on the updated data
+    });
+
+    if (!updatedUser) {
+      return res.status(404).send({ error: "User not found." });
+    }
+
+    return res.status(200).send({ msg: "Record updated successfully!", data: updatedUser });
   } catch (error) {
-    return res.status(401).send({ error });
+    console.error("Error updating user:", error.message);
+    return res.status(500).send({ error: "An error occurred while updating the record." });
   }
 }
+
 
 export async function generateOTP(req, res) {
   req.app.locals.OTP = await otpGenerator.generate(6, {
