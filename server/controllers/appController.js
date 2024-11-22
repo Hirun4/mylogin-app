@@ -165,7 +165,7 @@ export async function login(req, res) {
   }
 }
 
-// export async function getUser(req, res) {
+//export async function getUser(req, res) {
 //   const { username } = req.params;
 
 //   try {
