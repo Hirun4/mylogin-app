@@ -242,9 +242,13 @@ export async function resetPassword(req, res) {
     const {username,password} = req.body;
 
      try {
+      UserModel.findOne({username})
+      .then().catch(error => {
+        return res.status(404).send({error: "Username not found"})
+      })
       
      } catch (error) {
-      return res.status(500).send
+      return res.status(500).send({error})
      }
 
     
