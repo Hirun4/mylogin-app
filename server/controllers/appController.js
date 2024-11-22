@@ -246,7 +246,9 @@ export async function resetPassword(req, res) {
       .then(user => {
         bcrypt.hash(password,10)
         .then(hashedPassword => {
-          UserModel.updateOne({username: user.username},{password: hashedPassword})
+          UserModel.updateOne({username: user.username},{password: hashedPassword},function(err,data){
+            if(err) throw err;
+          })
         })
         .catch(e => {
           return res.status(500).send({ error: "Enable to hash password"})
