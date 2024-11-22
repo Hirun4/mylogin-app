@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import ENV from '../config.js'
-import { reset } from "nodemon";
+// import { reset } from "nodemon";
 
 /** auth middleware */
 export default async function Auth(req, res, next) {
