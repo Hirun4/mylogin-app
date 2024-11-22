@@ -243,7 +243,16 @@ export async function resetPassword(req, res) {
 
      try {
       UserModel.findOne({username})
-      .then().catch(error => {
+      .then(user => {
+        bcrypt.hash(password,10)
+        .then(hashedPassword => {
+          UserModel.updateOne({username: user.username},{password: hashedPassword})
+        })
+        .catch(e => {
+          return res.status(500).send({ error: "Enable to hash password"})
+        })
+      })
+      .catch(error => {
         return res.status(404).send({error: "Username not found"})
       })
       
