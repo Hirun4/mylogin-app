@@ -192,7 +192,7 @@ export async function getUser(req, res) {
 
   try {
     // Log username
-    console.log("Username received:", username);
+    console.log("Username received:", username); //for debugging
 
     if (!username) return res.status(400).send({ error: "Invalid Username" });
 
