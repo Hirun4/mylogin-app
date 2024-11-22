@@ -248,6 +248,7 @@ export async function resetPassword(req, res) {
         .then(hashedPassword => {
           UserModel.updateOne({username: user.username},{password: hashedPassword},function(err,data){
             if(err) throw err;
+            return res.status(201).send({msg: "record updated"})
           })
         })
         .catch(e => {
