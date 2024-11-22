@@ -241,6 +241,4 @@ export async function resetPassword(req, res) {
   res.json("resetPassword route");
 }
 
-// export async function resetPassword(req,res) {
-//     res.json('resetPassword route');
-// }
+
