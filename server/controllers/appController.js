@@ -199,16 +199,16 @@ export async function getUser(req, res) {
     
     const user = await UserModel.findOne({ username });
 
-    // Debugging: Log the user object
-    console.log("User found:", user);
+  
 
     if (!user) return res.status(404).send({ error: "User not found" });
 
     // Exclude password from response
     const { password, ...rest } = user.toJSON();
     return res.status(200).send(rest);
+
   } catch (error) {
-    
+
     console.error("Error in getUser:", error);
     return res.status(500).send({ error: "Cannot Find User Data" });
   }
