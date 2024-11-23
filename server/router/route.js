@@ -11,7 +11,7 @@ import Auth, { localVariables } from "../middleware/auth.js";
 /*Post methods*/
 router.route('/register').post(controller.register);
 router.route('/registerMail').post(registerMail);
-router.route('/authenticate').post((req,res) => res.end());
+router.route('/authenticate').post(controller.verifyUser, (req,res) => res.end());
 router.route('/login').post(controller.verifyUser,controller.login);
 
 
@@ -19,7 +19,7 @@ router.route('/login').post(controller.verifyUser,controller.login);
 /*GET methods*/
 router.route('/user/:username').get(controller.getUser);//user with username
 router.route('/generateOTP').get(localVariables,controller.verifyUser, controller.generateOTP);
-router.route('/verifyOTP').get(controller.verifyOTP);
+router.route('/verifyOTP').get(controller.verifyUser, controller.verifyOTP);
 router.route('/createResetSession').get(controller.createResetSession);
 
 /*PUT methods*/
