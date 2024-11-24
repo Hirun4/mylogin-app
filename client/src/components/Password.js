@@ -47,7 +47,7 @@ export default function Password() {
 
               <form className='py-1' onSubmit={formik.handleSubmit}>
                 <div className='profile flex justify-center py-4'>
-                    <img src={avatar} className={styles.profile_img} alt="avatar" />
+                    <img src={apiData?.profile || avatar} className={styles.profile_img} alt="avatar" />
 
                 </div>
                 <div className="textbox flex flex-col items-center gap-6">
