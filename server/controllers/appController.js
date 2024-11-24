@@ -293,40 +293,70 @@ export async function createResetSession(req, res) {
   return res.status(440).send({ error: "Session expired!" });
 }
 
-export async function resetPassword(req, res) {
-  try {
+// export async function resetPassword(req, res) {
+//   try {
 
-    if(!req.app.locals.resetSession) return res.status(440).send({ error: "Session expired!" });
-    const {username,password} = req.body;
+//     if(!req.app.locals.resetSession) return res.status(440).send({ error: "Session expired!" });
+//     const {username,password} = req.body;
 
-     try {
-      UserModel.findOne({username})
-      .then(user => {
-        bcrypt.hash(password,10)
-        .then(hashedPassword => {
-          UserModel.updateOne({username: user.username},{password: hashedPassword},function(err,data){
-            if(err) throw err;
-            req.app.locals.resetSession = false;
-            return res.status(201).send({msg: "record updated"})
-          });
-        })
-        .catch(e => {
-          return res.status(500).send({ error: "Enable to hash password"})
-        })
-      })
-      .catch(error => {
-        return res.status(404).send({error: "Username not found"})
-      })
+//      try {
+//       UserModel.findOne({username})
+//       .then(user => {
+//         bcrypt.hash(password,10)
+//         .then(hashedPassword => {
+//           UserModel.updateOne({username: user.username},{password: hashedPassword},function(err,data){
+//             if(err) throw err;
+//             req.app.locals.resetSession = false;
+//             return res.status(201).send({msg: "record updated"})
+//           });
+//         })
+//         .catch(e => {
+//           return res.status(500).send({ error: "Enable to hash password"})
+//         })
+//       })
+//       .catch(error => {
+//         return res.status(404).send({error: "Username not found"})
+//       })
       
-     } catch (error) {
-      return res.status(500).send({error})
-     }
+//      } catch (error) {
+//       return res.status(500).send({error})
+//      }
 
     
+//   } catch (error) {
+//     return res.status(401).send({error})
+//   }
+
+// }
+
+export async function resetPassword(req, res) {
+  try {
+    if (!req.app.locals.resetSession) {
+      return res.status(440).send({ error: "Session expired!" });
+    }
+
+    const { username, password } = req.body;
+
+    // Find the user
+    const user = await UserModel.findOne({ username });
+    if (!user) {
+      return res.status(404).send({ error: "Username not found" });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update the password
+    await UserModel.updateOne({ username: user.username }, { password: hashedPassword });
+
+    // Clear the reset session
+    req.app.locals.resetSession = false;
+
+    // Send success response
+    return res.status(201).send({ msg: "Record updated" });
   } catch (error) {
-    return res.status(401).send({error})
+    console.error(error); // Log the error for debugging
+    return res.status(500).send({ error: "Internal server error" });
   }
-
 }
-
 
