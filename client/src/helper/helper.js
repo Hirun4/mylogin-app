@@ -1,5 +1,5 @@
 import axios from 'axios';
-//import { Promise } from 'mongoose';
+// import { Promise } from 'mongoose';
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
