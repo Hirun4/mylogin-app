@@ -26,6 +26,9 @@ export default function Password() {
     }
   })
 
+  if (isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
+  
+
   return (
     <div className="container mx-auto">
 
