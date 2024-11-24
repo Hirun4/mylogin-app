@@ -12,7 +12,7 @@ import styles from '../styles/Username.module.css';
 export default function Password() {
 
   const {username} = useAuthStore(state => state.auth);
-  useFetch(`/api/${username}`)
+  const[{isLoading , apiData , serverError}] = useFetch(`/api/${username}`)
 
   const formik = useFormik({
     initialValues : {
