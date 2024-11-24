@@ -239,7 +239,7 @@ export async function getUser(req, res) {
 export async function updateUser(req, res) {
   try {
     
-    const userId = req.query.userId || req.body.userId; 
+    const {userId} = req.user
 
     console.log("Request user:", userId); // Debug 
 
@@ -248,7 +248,7 @@ export async function updateUser(req, res) {
     }
 
     const body = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate(userId, body, {
+    const updatedUser = await UserModel.findByIdAndUpdate( {_id :userId}, body, {
       new: true,
       runValidators: true,
     });
