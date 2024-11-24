@@ -11,6 +11,9 @@ import styles from '../styles/Username.module.css';
 
 export default function Password() {
 
+  const {username} = useAuthStore(state => state.auth);
+  
+
   const formik = useFormik({
     initialValues : {
       password : 'admin@123'
