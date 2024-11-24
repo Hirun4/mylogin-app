@@ -15,7 +15,7 @@ export default function useFetch(query){
             try {
                 
             } catch (error) {
-                setData(prev =>({...prev, isLoading: false}) )
+                setData(prev =>({...prev, isLoading: false, severError: error}) )
             }
         }
     })
