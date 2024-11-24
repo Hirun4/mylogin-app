@@ -27,5 +27,7 @@ export default function useFetch(query){
             }
         };
         fetchData();
-    },[query])
+    },[query]);
+
+    return [getData,setData];
 }
