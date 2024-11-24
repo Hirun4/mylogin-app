@@ -13,7 +13,7 @@ export default function useFetch(query){
 
         const fetchData = async () => {
             try {
-                
+                setData(prev =>({...prev, isLoading: true, severError: error}) )
             } catch (error) {
                 setData(prev =>({...prev, isLoading: false, severError: error}) )
             }
