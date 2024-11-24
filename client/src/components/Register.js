@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
 import avatar from '../assets/profile.png';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { registerValidation } from '../helper/validate';
+import { registerUser } from '../helper/helper';
 
 import styles from '../styles/Username.module.css';
 import convertToBase64 from '../helper/convert';
 
 export default function Register() {
-
-  const [file,setFile] = useState();
+  
+  const navigate = useNavigate()
+  const [file,setFile] = useState()
 
   const formik = useFormik({
     initialValues : {
@@ -18,14 +20,37 @@ export default function Register() {
       username: 'example123',
       password : 'admin@123'
     },
-    validate : registerValidation,
+    validate: registerValidation,
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit : async values =>{
-      values = await Object.assign(values,{profile : file || ''})
-      console.log(values)
+    onSubmit: async (values) => {
+      try {
+        // Assign the profile file to values
+        values = await Object.assign(values, { profile: file || '' });
+    
+        // Call registerUser and handle the promise with toast
+        const registerPromise = registerUser(values);
+    
+        toast.promise(registerPromise, {
+          loading: 'Creating...',
+          success: <b>Register Successfully...!</b>,
+          error: <b>Could not Register.</b>,
+        });
+    
+        // Wait for the registration to complete
+        await registerPromise;
+    
+        // Navigate to the login page after successful registration
+        navigate('/');
+      } catch (error) {
+        // Handle any unexpected errors and log them
+        console.error('Registration error:', error);
+        toast.error('An unexpected error occurred during registration.');
+      }
     }
-  })
+})
+
+    
 
   /*formik doesnot support file upload then we have to create this function*/
   const onUpload = async e => {
