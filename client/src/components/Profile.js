@@ -57,6 +57,7 @@ export default function Profile() {
   //logout handler function
   function userLogout(){
     localStorage.removeItem('token')
+    navigate('/')
   }
 
   if (isLoading)
