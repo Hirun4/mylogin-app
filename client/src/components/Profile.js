@@ -16,8 +16,7 @@ import extend from '../styles/Prrofile.module.css'
 export default function Profile() {
 
   const [file,setFile] = useState();
-  const { username } = useAuthStore((state) => state.auth);
-  const [{ isLoading, apiData, serverError }] = useFetch(`/api/${username}`);
+  const [{ isLoading, apiData, serverError }] = useFetch();
 
   const formik = useFormik({
     initialValues : {
