@@ -52,6 +52,9 @@ export default function Profile() {
     setFile(base64);
   }
 
+  //logout handler function
+  
+
   if (isLoading)
     return (
       <div className="container mx-auto">
