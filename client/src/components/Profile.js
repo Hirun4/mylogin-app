@@ -8,6 +8,7 @@ import convertToBase64 from '../helper/convert';
 import useFetch from '../hooks/fetch.hook';
 import { useAuthStore } from '../store/store';
 import { updateUser } from '../helper/helper';
+import { useNavigate } from 'react-router-dom';
 
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Prrofile.module.css'
@@ -16,8 +17,8 @@ import extend from '../styles/Prrofile.module.css'
 export default function Profile() {
 
   const [file,setFile] = useState();
-  const { username } = useAuthStore((state) => state.auth);
-  const [{ isLoading, apiData, serverError }] = useFetch(`/api/${username}`);
+  const [{ isLoading, apiData, serverError }] = useFetch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues : {
@@ -51,6 +52,12 @@ export default function Profile() {
   const onUpload = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
+  }
+
+  //logout handler function
+  function userLogout(){
+    localStorage.removeItem('token')
+    navigate('/')
   }
 
   if (isLoading)
@@ -114,7 +121,7 @@ export default function Profile() {
                    
                 </div>
                 <div className="text-center py-4">
-                    <span className='text-gray-500'>Come back later?<Link className='text-red-500' to="/">  Logout</Link></span>
+                    <span className='text-gray-500'>Come back later?<button onClick={userLogout} className='text-red-500' to="/">  Logout</button></span>
 
                 </div>
 
