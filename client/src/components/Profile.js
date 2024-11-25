@@ -121,7 +121,7 @@ export default function Profile() {
                    
                 </div>
                 <div className="text-center py-4">
-                    <span className='text-gray-500'>Come back later?<Link className='text-red-500' to="/">  Logout</Link></span>
+                    <span className='text-gray-500'>Come back later?<button onClick={userLogout} className='text-red-500' to="/">  Logout</button></span>
 
                 </div>
 
