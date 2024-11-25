@@ -1,10 +1,29 @@
 import axios from 'axios';
-// import { Promise } from 'mongoose';
+import { jwtDecode } from 'jwt-decode';
 
+// Set base URL for API requests
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
-/** Make API Requests */
+/** Function to get username from token */
+export async function getUsername() {
+  try {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Reject with a meaningful error message if no token is found
+      console.error("Token not found in localStorage.");
+      throw new Error("Cannot find token");
+    }
 
+    // Decode the token
+    const decodedToken = jwtDecode(token);
+    console.log(decodedToken); // Debugging: Log the decoded token
+    return decodedToken; // Return the decoded token (if needed)
+  } catch (error) {
+    console.error("Error in getUsername:", error.message || error);
+    throw error; // Rethrow the error for the caller to handle
+  }
+}
 
 
 /** authenticate function */ 
