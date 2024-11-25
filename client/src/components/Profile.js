@@ -8,6 +8,7 @@ import convertToBase64 from '../helper/convert';
 import useFetch from '../hooks/fetch.hook';
 import { useAuthStore } from '../store/store';
 import { updateUser } from '../helper/helper';
+import { useNavigate } from 'react-router-dom';
 
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Prrofile.module.css'
@@ -17,6 +18,7 @@ export default function Profile() {
 
   const [file,setFile] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues : {
