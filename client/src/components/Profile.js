@@ -11,7 +11,7 @@ import { updateUser } from '../helper/helper';
 import { useNavigate } from 'react-router-dom';
 
 import styles from '../styles/Username.module.css';
-import extend from '../styles/Prrofile.module.css'
+import extend from '../styles/Prrofile.module.css';
 
 
 export default function Profile() {
