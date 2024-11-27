@@ -350,10 +350,10 @@ export async function resetPassword(req, res) {
     await UserModel.updateOne({ username: user.username }, { password: hashedPassword });
 
     // Clear the reset session
-    req.app.locals.resetSession = false;
+    req.app.locals.resetSession = false;//reset session
 
     // Send success response
-    return res.status(201).send({ msg: "Record updated" });
+    return res.status(201).send({ flag : req.app.locals.resetSession });
   } catch (error) {
     console.error(error); // Log the error for debugging
     return res.status(500).send({ error: "Internal server error" });
