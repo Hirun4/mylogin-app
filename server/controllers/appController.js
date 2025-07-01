@@ -196,19 +196,14 @@ export async function getUser(req, res) {
 
     if (!username) return res.status(400).send({ error: "Invalid Username" });
 
-    
     const user = await UserModel.findOne({ username });
-
-  
 
     if (!user) return res.status(404).send({ error: "User not found" });
 
     // Exclude password from response
     const { password, ...rest } = user.toJSON();
     return res.status(200).send(rest);
-
   } catch (error) {
-
     console.error("Error in getUser:", error);
     return res.status(500).send({ error: "Cannot Find User Data" });
   }
@@ -238,33 +233,38 @@ export async function getUser(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    
-    const {userId} = req.user
+    const { userId } = req.user;
 
-    console.log("Request user:", userId); // Debug 
+    console.log("Request user:", userId); // Debug
 
     if (!userId) {
       return res.status(400).send({ error: "User ID is required." });
     }
 
     const body = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate( {_id :userId}, body, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      { _id: userId },
+      body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     if (!updatedUser) {
       return res.status(404).send({ error: "User not found." });
     }
 
-    return res.status(200).send({ msg: "Record updated successfully!", data: updatedUser });
+    return res
+      .status(200)
+      .send({ msg: "Record updated successfully!", data: updatedUser });
   } catch (error) {
     console.error("Error updating user:", error.message);
-    return res.status(500).send({ error: "An error occurred while updating the record." });
+    return res
+      .status(500)
+      .send({ error: "An error occurred while updating the record." });
   }
 }
-
-
 
 export async function generateOTP(req, res) {
   req.app.locals.OTP = await otpGenerator.generate(6, {
@@ -286,48 +286,16 @@ export async function verifyOTP(req, res) {
 }
 
 export async function createResetSession(req, res) {
-  if(req.app.locals.resetSession){
-    req.app.locals.resetSession = false; //allow access to this route only once
-    return res.status(201).send({ msg: "access granted!"})
+  try {
+    if (req.app.locals.resetSession) {
+      // Don't set resetSession = false here!
+      return res.status(201).send({ msg: "access granted!" });
+    }
+    return res.status(440).send({ error: "Session expired!" });
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
   }
-  return res.status(440).send({ error: "Session expired!" });
 }
-
-// export async function resetPassword(req, res) {
-//   try {
-
-//     if(!req.app.locals.resetSession) return res.status(440).send({ error: "Session expired!" });
-//     const {username,password} = req.body;
-
-//      try {
-//       UserModel.findOne({username})
-//       .then(user => {
-//         bcrypt.hash(password,10)
-//         .then(hashedPassword => {
-//           UserModel.updateOne({username: user.username},{password: hashedPassword},function(err,data){
-//             if(err) throw err;
-//             req.app.locals.resetSession = false;
-//             return res.status(201).send({msg: "record updated"})
-//           });
-//         })
-//         .catch(e => {
-//           return res.status(500).send({ error: "Enable to hash password"})
-//         })
-//       })
-//       .catch(error => {
-//         return res.status(404).send({error: "Username not found"})
-//       })
-      
-//      } catch (error) {
-//       return res.status(500).send({error})
-//      }
-
-    
-//   } catch (error) {
-//     return res.status(401).send({error})
-//   }
-
-// }
 
 export async function resetPassword(req, res) {
   try {
@@ -336,27 +304,39 @@ export async function resetPassword(req, res) {
     }
 
     const { username, password } = req.body;
+    console.log("Username:", username, "Password:", password);
 
     // Find the user
     const user = await UserModel.findOne({ username });
+    console.log("User found:", user);
+
     if (!user) {
+      console.log("Username not found");
       return res.status(404).send({ error: "Username not found" });
     }
 
     // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Hashed password:", hashedPassword);
 
     // Update the password
-    await UserModel.updateOne({ username: user.username }, { password: hashedPassword });
+    const updateResult = await UserModel.updateOne(
+      { username: user.username },
+      { password: hashedPassword }
+    );
+    console.log("Update result:", updateResult);
 
     // Clear the reset session
-    req.app.locals.resetSession = false;//reset session
+    req.app.locals.resetSession = false; // reset session
 
     // Send success response
-    return res.status(201).send({ flag : req.app.locals.resetSession });
+    console.log("Password reset successful");
+    return res.status(201).send({ msg: "Password reset successful" });
   } catch (error) {
-    console.error(error); // Log the error for debugging
-    return res.status(500).send({ error: "Internal server error" });
+    console.error("Error in resetPassword:", error); // Log the error for debugging
+    return res
+      .status(500)
+      .send({ error: error.message || "Internal server error" });
   }
 }
 
